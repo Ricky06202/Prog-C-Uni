@@ -3,6 +3,6 @@
 
 int main(int argc, char const *argv[])
 {
-    /* code */
+    char *nombre = "Ricardo";
     return 0;
 }
