@@ -2,7 +2,7 @@
 #include "stdlib.h"
 #include "math.h"
 #include "string.h"
-//vamo
+
 void UnNumeroEsParOImpar();
 void DosNumerosImprimirAmbosPositivos();
 void RaizCuadradaDeUnNumero();
