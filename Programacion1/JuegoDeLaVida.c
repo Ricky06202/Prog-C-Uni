@@ -133,6 +133,27 @@ void limpiarMatriz(int tam, char matriz[tam][tam])
       matriz[f][c] = ' ';
 }
 
+bool sigueAlguienVivo(int tam, char matriz[tam][tam])
+{
+  for (int i = 1; i < tam - 1; i++)
+    for (int j = 1; j < tam - 1; j++)
+      if (matriz[i][j] == '*')
+        return true;
+  return false;
+}
+
+bool hayInmortalidad(int tam, char matriz[tam][tam], char matrizActualizada[tam][tam])
+{
+  bool respuesta = false;
+  for (int i = 1; i < tam - 1; i++)
+    for (int j = 1; j < tam - 1; j++)
+      if (matriz[i][j] == matrizActualizada[i][j] && sigueAlguienVivo(tam, matriz))
+        respuesta = true;
+      else
+        return false;
+  return respuesta;
+}
+
 int main(int argc, char const *argv[])
 {
   do
@@ -148,12 +169,14 @@ int main(int argc, char const *argv[])
       printf("**Debe-Ser-5-o-Mayor**\n");
     }
 
-    char universo1[tam][tam], universo2[tam][tam];
+    char universo1[tam][tam], universo2[tam][tam], universoAux[tam][tam];
 
     // establecemos las condiciones iniciales de la matriz principal
     limpiarMatriz(tam, universo1);
     ponerElMarco(tam, universo1);
     ponerLosAsteriscos(tam, universo1);
+
+    limpiarMatriz(tam, universoAux);
 
     wePresentacion(TITULO);
     int limite;
@@ -172,11 +195,26 @@ int main(int argc, char const *argv[])
       // en este primer paso preparamos al universo2 para comenzar a recibir los asteriscos del universo1
       limpiarMatriz(tam, universo2);
       ponerElMarco(tam, universo2);
+
       for (int i = 1; i < tam - 1; i++)
         for (int j = 1; j < tam - 1; j++)
           nuevoAsterisco(tam, universo2, i, j, registrarAsteriscos(tam, universo1, i, j));
       printf("GENERACION %d\n\n", contador);
       mostrarMatriz(tam, universo1, universo2);
+      system("pause");
+
+      if (hayInmortalidad(tam, universo1, universo2) || hayInmortalidad(tam, universo2, universoAux))
+      {
+        printf("\nSe Ha Alcanzado La Felicidad Absoluta");
+        printf("\nEl Pueblo Goza de Inmortalidad");
+        printf("\nSe Detendra El Juego Para No Perturbar A Esta Civilizacion\n\n");
+        break;
+      }
+
+      for (int i = 1; i < tam - 1; i++)
+        for (int j = 1; j < tam - 1; j++)
+          universoAux[i][j] = universo2[i][j];
+
       // luego de mostradas las matrices preparamos al universo1 con una nueva generacion por si acaso se desea
       // volver a repetir el bucle, al fin y al cabo no se va a ver si no se repite otra vez el bucle
       limpiarMatriz(tam, universo1);
@@ -184,7 +222,13 @@ int main(int argc, char const *argv[])
       for (int i = 1; i < tam - 1; i++)
         for (int j = 1; j < tam - 1; j++)
           nuevoAsterisco(tam, universo1, i, j, registrarAsteriscos(tam, universo2, i, j));
-      system("pause");
+
+      if (!sigueAlguienVivo(tam, universo1))
+      {
+        printf("\nTodos Murieron Por Soledad");
+        printf("\nNo Hay Nadie Vivo Para Continuar\n\n");
+        break;
+      }
     }
   } while (wePreguntarSN(false, "Desea volver a Jugar?"));
   return 0;
