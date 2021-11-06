@@ -175,6 +175,7 @@ int main(int argc, char const *argv[])
       for (int i = 1; i < tam - 1; i++)
         for (int j = 1; j < tam - 1; j++)
           nuevoAsterisco(tam, universo2, i, j, registrarAsteriscos(tam, universo1, i, j));
+      printf("GENERACION %d\n\n", contador);
       mostrarMatriz(tam, universo1, universo2);
       // luego de mostradas las matrices preparamos al universo1 con una nueva generacion por si acaso se desea
       // volver a repetir el bucle, al fin y al cabo no se va a ver si no se repite otra vez el bucle
@@ -183,6 +184,7 @@ int main(int argc, char const *argv[])
       for (int i = 1; i < tam - 1; i++)
         for (int j = 1; j < tam - 1; j++)
           nuevoAsterisco(tam, universo1, i, j, registrarAsteriscos(tam, universo2, i, j));
+      system("pause");
     }
   } while (wePreguntarSN(false, "Desea volver a Jugar?"));
   return 0;
