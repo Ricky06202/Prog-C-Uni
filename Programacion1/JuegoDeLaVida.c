@@ -1,6 +1,6 @@
 /**
  * @archivo JuegoDeLaVida.c
- * @autor Ricardo Sanjur (ricardosanjurg@gmail.com)
+ * @autor Ricardo Sanjur, Thais Samudio, Irina Matveeva,Pedro de la torre, Ana Guerra
  * @resumen
  * @version 0.3
  * @fecha 09-11-2021
