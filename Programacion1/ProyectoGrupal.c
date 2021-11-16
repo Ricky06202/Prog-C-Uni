@@ -475,13 +475,9 @@ void Ventas()
 void marcarCarton(int numerosSacados[], int ultimo, int carton[5][5])
 {
     for (int f = 0; f < 5; f++)
-    {
         for (int c = 0; c < 5; c++)
-        {
             if (numerosSacados[ultimo] == carton[f][c])
-                carton[f][c] = 0;
-        }
-    }
+                carton[f][c] = 0;  
 }
 
 bool hemosGanado(int carton[5][5])
@@ -527,7 +523,10 @@ int verificarNumeroSacado(int numeroSacado[])
         num = 1 + rand() % (75 + 1 - 1);
         for (int i = 0; i < 75; i++)
             if (num == numeroSacado[i])
+            {
                 listo = false;
+                break;
+            }
     } while (!listo);
     return num;
 }
@@ -540,13 +539,9 @@ int verificarNum(int carton[5][5], int min, int max)
         listo = true;
         num = min + rand() % (max + 1 - min);
         for (int f = 0; f < 5; f++)
-        {
             for (int c = 0; c < 5; c++)
-            {
                 if (num == carton[f][c])
-                    listo = false;
-            }
-        }
+                    listo = false;  
     } while (!listo);
     return num;
 }
@@ -561,9 +556,9 @@ void vaciarCarton(int carton[][5])
 int generarCarton(int carton[5][5])
 {
 
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 5; i++) //filas
     {
-        for (int j = 0; j < 5; j++)
+        for (int j = 0; j < 5; j++)//columnas
         {
             if (j == 0)
 
@@ -749,8 +744,9 @@ continuar:
             mostrarCarton(pedro, "PEDRO");
         if (a)
             mostrarCarton(ana, "ANA");
+
         system("pause");
-        wePresentacion(BINGO);
+        wePresentacion(BINGO);// ahora vamos a tachar
         printf("EL NUMERO SACADO DE LA TOMBOLA");
         //system("timeout /t 1 > nul");
         printf(" ES: ");
