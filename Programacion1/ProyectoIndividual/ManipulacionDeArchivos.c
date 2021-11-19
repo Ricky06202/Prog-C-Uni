@@ -50,48 +50,46 @@ int main(int argc, char const *argv[])
 {
     FILE *datos = fopen("DATOS.txt", "r");
     struct alumno estudiante[CANTIDAD_DE_ALUMNOS];
-    int conteoAlumnos = 0;
-    while (!feof(datos))
+    for(int conteoAlumnos = 0; conteoAlumnos < CANTIDAD_DE_ALUMNOS; conteoAlumnos++)
     {
         fscanf(datos, "%[^\n]\n", &estudiante[conteoAlumnos].nombre);
-        for (int i = 0; i < CANTIDAD_DE_SEMESTRES; i++)
+        for (int conteoSemestres = 0; conteoSemestres < CANTIDAD_DE_SEMESTRES; conteoSemestres++)
         {
-            fscanf(datos, "%d %d\n", &estudiante[conteoAlumnos].periodo[i], &estudiante[conteoAlumnos].semestre[i]);
-            estudiante[conteoAlumnos].puntos[i] = 0;
-            estudiante[conteoAlumnos].creditosTotales[i] = 0;
-            for (int j = 0; j < CANTIDAD_DE_MATERIAS; j++)
+            fscanf(datos, "%d %d\n", &estudiante[conteoAlumnos].periodo[conteoSemestres], &estudiante[conteoAlumnos].semestre[conteoSemestres]);
+            estudiante[conteoAlumnos].puntos[conteoSemestres] = 0;
+            estudiante[conteoAlumnos].creditosTotales[conteoSemestres] = 0;
+            for (int conteoMaterias = 0; conteoMaterias < CANTIDAD_DE_MATERIAS; conteoMaterias++)
             {
                 int creditos;
                 char codigoAsignatura[5], descripcion[50], nota;
                 fscanf(datos, "%d %s %c %[^\n]\n", &creditos, &codigoAsignatura, &nota, &descripcion);
-                estudiante[conteoAlumnos].creditosTotales[i] += creditos;
-                estudiante[conteoAlumnos].puntos[i] += calcularPuntos(creditos, nota);
+                estudiante[conteoAlumnos].creditosTotales[conteoSemestres] += creditos;
+                estudiante[conteoAlumnos].puntos[conteoSemestres] += calcularPuntos(creditos, nota);
             }
-            estudiante[conteoAlumnos].indice[i] = (float)estudiante[conteoAlumnos].puntos[i] / estudiante[conteoAlumnos].creditosTotales[i];
+            estudiante[conteoAlumnos].indice[conteoSemestres] = (float)estudiante[conteoAlumnos].puntos[conteoSemestres] / estudiante[conteoAlumnos].creditosTotales[conteoSemestres];
         }
-        conteoAlumnos++;
     }
     fclose(datos);
 
     FILE *salida = fopen("DatosProcesados.txt", "w");
-    for (int i = 0; i < CANTIDAD_DE_ALUMNOS; i++)
+    for (int conteoAlumnos = 0; conteoAlumnos < CANTIDAD_DE_ALUMNOS; conteoAlumnos++)
     {
-        if (i != 0)
+        if (conteoAlumnos != 0)
             fprintf(salida, "\n");
-        fprintf(salida, "%s", estudiante[i].nombre);
-        fprintf(salida, "\n      Semestre   Puntos   Total/Cr   Indice   Condicional", estudiante[i].nombre);
+        fprintf(salida, "%s", estudiante[conteoAlumnos].nombre);
+        fprintf(salida, "\n      Semestre   Puntos   Total/Cr   Indice   Condicional", estudiante[conteoAlumnos].nombre);
         int condicional = 0;
-        for (int j = 0; j < CANTIDAD_DE_SEMESTRES; j++)
+        for (int conteoSemestres = 0; conteoSemestres < CANTIDAD_DE_SEMESTRES; conteoSemestres++)
         {
-            if (estudiante[i].indice[j] < 1)
+            if (estudiante[conteoAlumnos].indice[conteoSemestres] < 1)
                 condicional += 1;
             else
                 condicional = 0;
-            fprintf(salida, "\n%d  %5d   %7d   %7d   %8.2f   %7d", estudiante[i].periodo[j], estudiante[i].semestre[j], estudiante[i].puntos[j], estudiante[i].creditosTotales[j], estudiante[i].indice[j], condicional);
+            fprintf(salida, "\n%d  %5d   %7d   %7d   %8.2f   %7d", estudiante[conteoAlumnos].periodo[conteoSemestres], estudiante[conteoAlumnos].semestre[conteoSemestres], estudiante[conteoAlumnos].puntos[conteoSemestres], estudiante[conteoAlumnos].creditosTotales[conteoSemestres], estudiante[conteoAlumnos].indice[conteoSemestres], condicional);
         }
         if (condicional == 3)
             fprintf(salida, "       CAMBIO DE CARRERA\n");
-        if (i != CANTIDAD_DE_ALUMNOS - 1)
+        if (conteoAlumnos != CANTIDAD_DE_ALUMNOS - 1)
             fprintf(salida, "\n");
     }
     fclose(salida);
