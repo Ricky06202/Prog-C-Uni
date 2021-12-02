@@ -143,6 +143,7 @@ void procesarLosDatosYGuardarlos()
    };
 
    struct alumno estudiante[CANTIDAD_DE_ALUMNOS];
+
    for (int conteoAlumnos = 0; conteoAlumnos < CANTIDAD_DE_ALUMNOS; conteoAlumnos++)
    {
       fscanf(datos, "%[^\n]\n", &estudiante[conteoAlumnos].nombre);
