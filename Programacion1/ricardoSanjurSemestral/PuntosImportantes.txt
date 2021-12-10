@@ -1,0 +1,120 @@
+OPCION 1
+
+Recibir por teclado:
+    Codigo de Articulo - Descripcion
+    Impuesto
+    Cantidad existente
+    Costo Unitario
+
+Código de artículo – Descripción del artículo
+Impuesto – cantidad existente – costo unitario
+
+y almacenarlos en el archivo "clientes***"
+
+OPCION 2
+
+Mostrar los articulos y su valor
+al final mostrar la suma
+
+valor = costo * Cantidad
+
+formato de salida
+
+UNIVERSIDAD TECNOLÓGICA DE PANAMÁ
+
+CENTRO REGIONAL DE CHIRIQUÍ
+
+LICENCIATURA EN INGENIERÍA DE SISTEMAS Y COMPUTACIÓN
+
+ESTUDIANTE: XXXXXXXXXXXXXXXXXXXXX PROFESORA: Cecilia González de Beitia
+
+REPORTE DE VALORIZACIÓN DE INVENTAIO
+
+EXAMEN SEMESTRAL
+
+Codigo  Descripcion Costo   Cantidad    valor
+VCN210  Epson       120.00  10          1200.00
+TRG012  Cannon      150.00  2           300.00
+
+                            Valor Total 1500.00
+
+OPCION 3
+
+Por cada Cliente Pedir:
+    Nombre
+    Codigo Articulo
+    Cantidad
+
+    terminar cuando codigo de articulo = "0"
+
+formato salida
+
+UNIVERSIDAD TECNOLÓGICA DE PANAMÁ
+
+CENTRO REGIONAL DE CHIRIQUÍ
+
+LICENCIATURA EN INGENIERÍA DE SISTEMAS Y COMPUTACIÓN
+
+ESTUDIANTE: XXXXXXXXXXXXXXXXXXXXX PROFESORA: Cecilia González de Beitia
+
+REPORTE DE VENTAS
+
+EXAMEN SEMESTRAL
+
+NOMBRE DEL CLIENTE: XXXXXXXXXXXXXXXXXXXX
+
+Codigo  Descripcion     Precio  Cantidad    Valor
+XXXXX   XXXXXXXXX       99.99   99          999.99
+                                            ------
+                                sub Total   999.99
+                                            ------
+                                7%          999.99
+                                10%         999.99
+                                            ------
+                            total Impuesto  999.99
+                                            ======
+                            total a pagar   999.99
+
+Código de artículo – Descripción del artículo
+
+Impuesto – cantidad existente – costo unitario
+
+ABC000 REFRIGERADORA
+
+'7' 15 495.95
+
+XYZ100 MARCADORES PARA TABLEROS
+
+'0' 65 38.95
+
+QWE200 PAÑALES DESECHABLES
+
+'0' 70 10.95
+
+RST300 CERVEZA PANAMA
+
+'1' 85 24.95
+
+DEF400 ABANICO DE PEDESTAL
+
+'7' 45 35.95
+
+JKL500 CUADERNOS DOBLE RAYA
+
+'0' 85 25.95
+
+FGH600 MESA DE PING PONG
+
+'7' 15 75.85
+
+HIJ700 FRESAS CONGELADAS
+
+'0' 95 12.95
+
+BCX800 MESA REDONDAS
+
+'7' 20 125.85
+
+VNX900 LÁPICES DE COLORES
+
+'0' 95 12.50
