@@ -1,0 +1,4 @@
+Codigo     Descripcion                       Costo    Cantidad        Valor
+ASD123     Articulo bonito                    41.00    23             943.00
+JSDJ23     Articulo Barato                   433.00    2              866.00
+                                                  Valor Total        1809.00

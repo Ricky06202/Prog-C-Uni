@@ -1,0 +1,6 @@
+{
+	"C_Cpp.errorSquiggles": "Enabled",
+	"C_Cpp.autocompleteAddParentheses": true,
+	"C_Cpp.vcFormat.indent.braces": true,
+	"C_Cpp.vcFormat.indent.caseContents": false
+}
