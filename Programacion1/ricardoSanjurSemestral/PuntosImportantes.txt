@@ -39,11 +39,17 @@ TRG012  Cannon      150.00  2           300.00
                             Valor Total 1500.00
 
 OPCION 3
-
+preguntar si hay otro cliente
 Por cada Cliente Pedir:
     Nombre
     Codigo Articulo
     Cantidad
+
+    Precio1: equivale a costo unitario + el 15% del mismo
+
+    Precio2: equivale a costo unitario + el 27% del mismo
+
+    Precio3: equivale a costo unitario + el 35% del mismo
 
     terminar cuando codigo de articulo = "0"
 

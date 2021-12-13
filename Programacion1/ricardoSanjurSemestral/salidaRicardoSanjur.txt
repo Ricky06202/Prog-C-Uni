@@ -2,3 +2,82 @@ Codigo     Descripcion                       Costo    Cantidad        Valor
 ASD123     Articulo bonito                    41.00    23             943.00
 JSDJ23     Articulo Barato                   433.00    2              866.00
                                                   Valor Total        1809.00
+Codigo     Descripcion                       Costo    Cantidad        Valor
+ASD123     Articulo Bonito                    41.00    23             943.00
+JSDJ23     Articulo Barato                   433.00    2              866.00
+MSD22Q     Nuevo Articulo                     29.00    9              261.00
+
+                                                  Valor Total        2070.00
+Codigo     Descripcion                       Costo    Cantidad        Valor
+ASD123     Articulo Bonito                    41.00    23             943.00
+JSDJ23     Articulo Barato                   433.00    2              866.00
+MSD22Q     Nuevo Articulo                     29.00    9              261.00
+ASD321     Bonito Articulo                   434.00    23            9982.00
+
+                                                  Valor Total       12052.00
+NOMBRE DEL CLIENTE: Ricardo Sanjur
+
+Codigo     Descripcion                       Precio   Cantidad        Valor
+ASD123     Articulo Bonito                    55.00    3              165.00
+
+                                                                ------------
+
+                                                    Sub Total         165.00
+
+                                                                ------------
+
+                                                          4%         165.00
+
+                                                                ------------
+
+                                                    Sub Total         165.00
+
+                                                                ============
+
+                                                    Sub Total         330.00
+NOMBRE DEL CLIENTE: Thais Samudio
+
+Codigo     Descripcion                       Precio   Cantidad        Valor
+ASD123     Articulo Bonito                    52.00    5              260.00
+ASD321     Bonito Articulo                   585.00    13            7605.00
+
+                                                                ------------
+
+                                                    Sub Total        7865.00
+
+                                                                ------------
+
+                                                          4%          10.40
+
+                                                          4%         304.20
+
+                                                                ------------
+
+                                               Total Impuesto        7865.00
+
+                                                                ============
+
+                                                Total a Pagar       15730.00
+NOMBRE DEL CLIENTE: Mi novia Bella
+
+Codigo     Descripcion                       Precio   Cantidad        Valor
+ASD123     Articulo Bonito                    55.00    4              220.00
+ASD321     Bonito Articulo                   551.00    5             2755.00
+
+                                                                ------------
+
+                                                    Sub Total        2975.00
+
+                                                                ------------
+
+                                                          4%           8.80
+
+                                                          4%         110.20
+
+                                                                ------------
+
+                                               Total Impuesto         119.00
+
+                                                                ============
+
+                                                Total a Pagar        3094.00
