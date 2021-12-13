@@ -5,8 +5,8 @@
  * pedir los articulos a vender, hacer un registro de todos los articulos q tenemos
  * y poder procesar las ordenes de los clientes para la venta de los productos
  *
- * @version 0.3
- * @fecha 12-12-2021
+ * @version 0.4
+ * @fecha 13-12-2021
  *
  * @copyright Copyright (c) 2021
  *
@@ -16,6 +16,7 @@
 #include "Lib/P1/MasUsados.h"
 #include "string.h"
 #include "stdbool.h"
+#include "time.h"
 
 /**
  * @resumen Esta Funcion se encarga de pedir los articulos y registrarlos en
@@ -54,6 +55,7 @@ void almacenarArticulos()
         if (cantidad == 0 || !elArticuloExiste(cantidad, articulo.codigo, verificar))
             break;
         printf("El Codigo introducido ya existe\n");
+        wePausa;
     }
     free(verificar); // para liberar el espacio reservado por malloc
     weIngresarTexto(articulo.descripcion, "Ingrese la Descripcion del Articulo");
@@ -65,6 +67,7 @@ void almacenarArticulos()
         if (articulo.impuesto >= '0' && articulo.impuesto <= '9')
             break;
         printf("Error!! El impuesto debe ser un numero entre 0 y 9\n");
+        wePausa;
     }
     while (true)
     {
@@ -73,6 +76,7 @@ void almacenarArticulos()
         if (articulo.cantidad > 0)
             break;
         printf("Debe ser un numero positivo\n");
+        wePausa;
     }
     while (true)
     {
@@ -81,11 +85,12 @@ void almacenarArticulos()
         if (articulo.costo > 0)
             break;
         printf("Debe ser un numero positivo\n");
+        wePausa;
     }
 
     FILE *clientes = fopen("clientesRicardoSanjur.txt", "a");
-    fprintf(clientes, "%s - %s\n", articulo.codigo, articulo.descripcion);
-    fprintf(clientes, "'%c' - %d - %.2f\n", articulo.impuesto, articulo.cantidad, articulo.costo);
+    fprintf(clientes, "%s %s\n", articulo.codigo, articulo.descripcion);
+    fprintf(clientes, "'%c' %d %.2f\n", articulo.impuesto, articulo.cantidad, articulo.costo);
     fclose(clientes);
 }
 
@@ -99,16 +104,12 @@ int obtenerCantidadDeArticulos()
 {
     FILE *clientes = fopen("clientesRicardoSanjur.txt", "r");
     if (clientes == NULL)
-    {
-        printf("No se encontro el Archivo \"clientesRicardoSanjur.txt\"");
-        wePausa;
-        exit(-1);
-    }
+        return 0;
     int cantidadArticulos = 0;
     while (!feof(clientes))
     {
-        char aux[50];
-        fgets(aux, 50, clientes);
+        char aux[100];
+        fgets(aux, 100, clientes);
         cantidadArticulos++;
     }
     fclose(clientes);
@@ -126,7 +127,8 @@ datosArticulos *leerValoresDeLosArticulos()
     FILE *clientes = fopen("clientesRicardoSanjur.txt", "r");
     if (clientes == NULL)
     {
-        printf("No se encontro el Archivo \"clientesRicardoSanjur.txt\"");
+        printf("No se encontro el Archivo \"clientesRicardoSanjur.txt\"\n");
+        printf("Este archivo se generara automaticamente si almacena algun articulo\n");
         wePausa;
         exit(-1);
     }
@@ -139,8 +141,8 @@ datosArticulos *leerValoresDeLosArticulos()
     for (int i = 0; i < CANTIDAD_ARTICULOS; i++)
     {
         // Tambien pude haber usado        articulo[i].codigo    pero queria probarlo de esta manera
-        fscanf(clientes, "%s - %[^\n]\n", &(articulo + i)->codigo, &(articulo + i)->descripcion);
-        fscanf(clientes, "'%c' - %d - %f", &(articulo + i)->impuesto, &(articulo + i)->cantidad, &(articulo + i)->costo);
+        fscanf(clientes, "%s %[^\n]\n", &(articulo + i)->codigo, &(articulo + i)->descripcion);
+        fscanf(clientes, "'%c' %d %f", &(articulo + i)->impuesto, &(articulo + i)->cantidad, &(articulo + i)->costo);
     }
     fclose(clientes);
     return articulo;
@@ -153,12 +155,13 @@ datosArticulos *leerValoresDeLosArticulos()
  * archivo "salidaRicardoSanjur.txt"
  *
  */
+void imprimirFormato(char texto[], FILE *archivo);
 void mostrarInventario()
 {
     datosArticulos *articulo = leerValoresDeLosArticulos();
     float valorTotal = 0;
     FILE *salida = fopen("salidaRicardoSanjur.txt", "a");
-
+    imprimirFormato("REPORTE DE VALORIZACION DE INVENTARIO", salida);
     const int CANTIDAD_ARTICULOS = obtenerCantidadDeArticulos();
     if (CANTIDAD_ARTICULOS == 0)
     {
@@ -179,32 +182,34 @@ void mostrarInventario()
     fprintf(salida, "\n                                                  Valor Total   %12.2f\n", valorTotal);
     free(articulo); // para liberar el espacio reservado por malloc
     fclose(salida);
+    printf("\nPuede ver el Inventario en el archivo de salida\n\n");
+    wePausa;
 }
 /**
  * @resumen esta funcion nos ayudara a poder actualizar nuestro almacen o inventario
  * poniendonos al dia sobre las cosas q se compraron
- * 
- * @parametro cantidad 
- * @parametro articulo 
+ *
+ * @parametro cantidad
+ * @parametro articulo
  */
 void actualizarAlmacen(int cantidad, datosArticulos *articulo)
 {
     FILE *clientes = fopen("clientesRicardoSanjur.txt", "w");
     for (int i = 0; i < cantidad; i++)
     {
-        fprintf(clientes, "%s - %s\n", articulo[i].codigo, articulo[i].descripcion);
-        fprintf(clientes, "'%c' - %d - %.2f\n", articulo[i].impuesto, articulo[i].cantidad, articulo[i].costo);
+        fprintf(clientes, "%s %s\n", articulo[i].codigo, articulo[i].descripcion);
+        fprintf(clientes, "'%c' %d %.2f\n", articulo[i].impuesto, articulo[i].cantidad, articulo[i].costo);
     }
     fclose(clientes);
 }
 /**
  * @resumen esta funcion comprueba si el codigo q insertamos existe en el arreglo de datos
- * 
- * @parametro cantidad 
- * @parametro codigo 
- * @parametro verificar 
- * @return true 
- * @return false 
+ *
+ * @parametro cantidad
+ * @parametro codigo
+ * @parametro verificar
+ * @return true
+ * @return false
  */
 bool elArticuloExiste(int cantidad, char codigo[], datosArticulos *verificar)
 {
@@ -217,12 +222,18 @@ bool elArticuloExiste(int cantidad, char codigo[], datosArticulos *verificar)
 /**
  * @resumen esta es la funcion que llamamos cuando elegimos mal el codigo del producto a comprar
  * y nos sirve para visualizar los productos existentes
- * 
- * @parametro cantidad 
- * @parametro articulo 
+ *
+ * @parametro cantidad
+ * @parametro articulo
  */
 void mostrarArticulosDisponibles(int cantidad, datosArticulos *articulo)
 {
+    if (cantidad == 0)
+    {
+        printf("No hay Articulos Disponibles\n\n");
+        wePausa;
+        return;
+    }
     printf("\nCodigo     Descripcion                       Costo    Cantidad\n");
     for (int i = 0; i < cantidad; i++)
         printf("%-8s   %-30s   %7.2f    %-4d\n", (articulo + i)->codigo, (articulo + i)->descripcion, (articulo + i)->costo, (articulo + i)->cantidad);
@@ -231,11 +242,11 @@ void mostrarArticulosDisponibles(int cantidad, datosArticulos *articulo)
 /**
  * @resumen esta funcion es la que nos permite comparar el codigo que le ingresamos con los codigos
  * que existen en nuestro inventario, de encontrarlo devuelve su posicion en el arreglo
- * 
- * @parametro cantidad 
- * @parametro articulo 
- * @parametro codigo 
- * @return int 
+ *
+ * @parametro cantidad
+ * @parametro articulo
+ * @parametro codigo
+ * @return int
  */
 int encontrarArticulo(int cantidad, datosArticulos *articulo, char codigo[])
 {
@@ -246,15 +257,15 @@ int encontrarArticulo(int cantidad, datosArticulos *articulo, char codigo[])
     }
 }
 /**
- * @resumen esta funcion es la que va imprimiendo parte de la factura, para evitar tener 
+ * @resumen esta funcion es la que va imprimiendo parte de la factura, para evitar tener
  * que almacenar cada dato de la factura, mejor vamos imprimiendolo en el camino
- * 
- * @parametro salida 
- * @parametro articulo 
- * @parametro indiceArticulo 
- * @parametro cantidad 
- * @parametro precioDeVenta 
- * @return float 
+ *
+ * @parametro salida
+ * @parametro articulo
+ * @parametro indiceArticulo
+ * @parametro cantidad
+ * @parametro precioDeVenta
+ * @return float
  */
 float imprimirArticuloComprado(FILE *salida, datosArticulos *articulo, int indiceArticulo, int cantidad, float precioDeVenta)
 {
@@ -266,31 +277,42 @@ float imprimirArticuloComprado(FILE *salida, datosArticulos *articulo, int indic
 /**
  * @resumen esta es la funcion en la que pedimos y verificamos el codigo y la cantidad
  * si insertamos un codigo incorrecto se nos mostrara una lista con las opciones
- * 
- * @parametro salida 
- * @parametro CANTIDAD_ARTICULOS 
- * @parametro articulo 
- * @parametro codigo 
- * @parametro cantidad 
- * @return true 
- * @return false 
+ *
+ * @parametro salida
+ * @parametro CANTIDAD_ARTICULOS
+ * @parametro articulo
+ * @parametro codigo
+ * @parametro cantidad
+ * @return true
+ * @return false
  */
 bool ingresarCodigoYCantidad(FILE *salida, int CANTIDAD_ARTICULOS, datosArticulos *articulo, char codigo[], int *cantidad)
 {
     char aux[10];
+    int indiceArticulo;
     while (true)
     {
+        printf("Los Articulos Disponibles son los siguientes\n\n");
+        mostrarArticulosDisponibles(CANTIDAD_ARTICULOS, articulo);
         weIngresarTexto(codigo, "Ingrese el Codigo del Articulo, Ingrese \"0\" para Finalizar");
         if (strcmp(codigo, "0") == 0)
             return false;
         if (elArticuloExiste(CANTIDAD_ARTICULOS, codigo, articulo))
+        {
+            indiceArticulo = encontrarArticulo(CANTIDAD_ARTICULOS, articulo, codigo);
+            if (articulo[indiceArticulo].cantidad == 0)
+            {
+                printf("Articulo Agotado!!\n");
+                wePausa;
+                continue;
+            }
             break;
+        }
+
         printf("El Codigo Ingresado no Existe\n");
-        printf("Los Articulos Disponibles son los siguientes\n\n");
-        mostrarArticulosDisponibles(CANTIDAD_ARTICULOS, articulo);
+        wePausa;
     }
 
-    int indiceArticulo = encontrarArticulo(CANTIDAD_ARTICULOS, articulo, codigo);
     int cantidadMaxima = articulo[indiceArticulo].cantidad;
     while (true)
     {
@@ -298,17 +320,20 @@ bool ingresarCodigoYCantidad(FILE *salida, int CANTIDAD_ARTICULOS, datosArticulo
         *cantidad = atoi(aux);
         if (*cantidad > 0 && *cantidad <= cantidadMaxima)
             break;
-        printf("La Cantidad Ingresada Debe estar entre 1 y %d", cantidadMaxima);
+        printf("La Cantidad Ingresada Debe ser menor o igual a %d y ser positiva\n", cantidadMaxima);
+        wePausa;
     }
+    articulo[indiceArticulo].cantidad -= *cantidad;
+    actualizarAlmacen(CANTIDAD_ARTICULOS, articulo);
     return true;
 }
 /**
  * @resumen esta funcion es la que nos permite seleccionar el precio a que venderemos
  * nuestro producto
- * 
- * @parametro indiceArticulo 
- * @parametro articulo 
- * @return float 
+ *
+ * @parametro indiceArticulo
+ * @parametro articulo
+ * @return float
  */
 float elegirPrecioDeVenta(int indiceArticulo, datosArticulos *articulo)
 {
@@ -328,13 +353,14 @@ float elegirPrecioDeVenta(int indiceArticulo, datosArticulos *articulo)
         int opcion = atoi(aux);
         if (opcion >= 1 && opcion <= 3)
             return costoMasPorcentaje[opcion - 1];
-        printf("Ingrese una Opcion Valida");
+        printf("Ingrese una Opcion Valida\n");
+        wePausa;
     }
 }
 /**
  * @resumen esta funcion es la encargada de registrar las ventas de cada uno de los clientes como si
  * fuesen facturas en las que se mostraran todos los datos relevantes
- * 
+ *
  */
 void registrarVentas()
 {
@@ -351,10 +377,19 @@ void registrarVentas()
     }
     weIngresarTexto(nombre, "Nombre del Cliente");
     FILE *salida = fopen("salidaRicardoSanjur.txt", "a");
+    imprimirFormato("         REPORTE DE VENTAS", salida);
     fprintf(salida, "NOMBRE DEL CLIENTE: %s\n\n", nombre);
+
+    // esta parte es para que se imprima la fecha y la hora, como lo verias en una factura
+    time_t tiempo = time(0);
+    struct tm *tiempoLocal = localtime(&tiempo);
+    char FechaYHora[20];
+    strftime(FechaYHora, 20, "%d/%m/%y %H:%M:%S", tiempoLocal);
+    fprintf(salida, "%s\n\n", FechaYHora);
+
     bool ingresarOtroArticulo;
     float subtotal = 0;
-    char listaPorcentajes[50];
+    char listaPorcentajes[50] = "";
     int listaIndices[20];
     int i = 0;
     fprintf(salida, "Codigo     Descripcion                       Precio   Cantidad        Valor\n");
@@ -392,9 +427,150 @@ void registrarVentas()
     free(articulo);
     fclose(salida);
 }
+/**
+ * @resumen En esta funcion añadimos un valor a la cantidad actual del producto seleccionado
+ *
+ */
+void reabastecerAlmacen()
+{
+    datosArticulos *articulo = leerValoresDeLosArticulos();
+    const int CANTIDAD_ARTICULOS = obtenerCantidadDeArticulos();
+    char codigo[10], aux[10];
+    int cantidad;
+    if (CANTIDAD_ARTICULOS == 0)
+    {
+        printf("No hay Articulos Disponibles\n\n");
+        wePausa;
+        return;
+    }
+
+    while (true)
+    {
+        printf("Estos Son los Articulos Actuales:\n");
+        mostrarArticulosDisponibles(CANTIDAD_ARTICULOS, articulo);
+        printf("Ingrese el codigo del producto al que quiere reavastecer\n");
+        printf("(Esta cantidad se a%cadira a la existente)\n", 164);
+        weIngresarTexto(codigo, "Codigo");
+        if (elArticuloExiste(CANTIDAD_ARTICULOS, codigo, articulo))
+            break;
+        printf("El Codigo Ingresado no Existe\n");
+        wePausa;
+    }
+    while (true)
+    {
+        weIngresarTexto(aux, "Ingrese la Cantidad que va a Reabastecer");
+        cantidad = atoi(aux);
+        if (cantidad >= 0)
+            break;
+        printf("La Cantidad Ingrada debe ser positiva\n");
+        wePausa;
+    }
+    int indiceArticulo = encontrarArticulo(CANTIDAD_ARTICULOS, articulo, codigo);
+    articulo[indiceArticulo].cantidad += cantidad;
+    actualizarAlmacen(CANTIDAD_ARTICULOS, articulo);
+    free(articulo);
+}
+/**
+ * @resumen aki imprimimos nuestro menu principal
+ *
+ */
+void menu()
+{
+    printf("################################\n");
+    printf("#-----OPCIONES-DISPONIBLES-----#\n");
+    printf("#--1)*Almacenar-Los-Articulos--#\n");
+    printf("#--2)*Imprimir-El-Inventario---#\n");
+    printf("#--3)*Realizar-Ventas----------#\n");
+    printf("#--4)*Reabastecer-El-Almacen---#\n");
+    printf("#--5)*(((SALIR)))--------------#\n");
+    printf("################################\n");
+}
+/**
+ * @resumen esta funcion nos mostrara una brebe presentacion para el trabajo
+ *
+ * @parametro texto
+ */
+void mostrarPresentacion(char texto[])
+{
+    system("cls");
+    printf("\n\n");
+    printf("             UNIVERSIDAD TECNOLOGICA DE PANAMA\n");
+    printf("                CENTRO REGIONAL DE CHIRIQUI\n");
+    printf("     LICENCIATURA EN INGENIERIA DE SISTEMAS Y COMPUTACION\n");
+    printf("ESTUDIANTE: Ricardo Sanjur PROFESORA: Cecilia Gonzalez de Beitia\n");
+    printf("            %s\n", texto);
+    printf("                     EXAMEN SEMESTRAL\n");
+    printf("\n\n");
+}
+/**
+ * @resumen Esta funcion es exlusiva para imprimir el formato en los archivos
+ *
+ * @parametro texto
+ * @parametro archivo
+ */
+void imprimirFormato(char texto[], FILE *archivo)
+{
+    fprintf(archivo, "\n\n");
+    fprintf(archivo, "             UNIVERSIDAD TECNOLOGICA DE PANAMA\n");
+    fprintf(archivo, "                CENTRO REGIONAL DE CHIRIQUI\n");
+    fprintf(archivo, "     LICENCIATURA EN INGENIERIA DE SISTEMAS Y COMPUTACION\n");
+    fprintf(archivo, "ESTUDIANTE: Ricardo Sanjur PROFESORA: Cecilia Gonzalez de Beitia\n");
+    fprintf(archivo, "           %s\n", texto);
+    fprintf(archivo, "                     EXAMEN SEMESTRAL\n");
+    fprintf(archivo, "\n\n");
+}
 
 int main(int argc, char const *argv[])
 {
-    registrarVentas();
+
+    char aux[10];
+    int elegida;
+    void (*opcion[])() = {
+        almacenarArticulos,
+        mostrarInventario,
+        registrarVentas,
+        reabastecerAlmacen};
+    char pregunta[4][50] = {
+        "Desea Almacenar Otro Articulo?",
+        "el inventario solo se ve una vez no se repite",
+        "Desea Registrar Otra Venta?",
+        "Desea Reabastecer Otro Articulo del Almacen?"};
+    char textoPresentacion[4][40] = {
+        "        ALMACENAR ARTICULO",
+        "REPORTE DE VALORIZACION DE INVENTARIO",
+        "         VENDER ARTICULOS",
+        "       REABASTECER ARTICULOS"};
+
+    while (true)
+    {
+        while (true)
+        {
+            mostrarPresentacion("       PROGRAMA EMPRESARIAL");
+            menu();
+            weIngresarTexto(aux, "Ingrese una de las Opciones");
+            elegida = atoi(aux);
+            if (elegida >= 1 && elegida <= 5)
+                break;
+            printf("Opcion Incorrecta, Vuelva a Intentarlo...\n");
+            wePausa;
+        }
+        switch (elegida)
+        {
+        case 5:
+            exit(EXIT_SUCCESS);
+            break;
+
+        default:
+            do
+            {
+                mostrarPresentacion(textoPresentacion[elegida - 1]);
+                opcion[elegida - 1]();
+                if (elegida == 2)
+                    break;
+            } while (wePreguntarSN(false, pregunta[elegida - 1]));
+            break;
+        }
+    }
+
     return 0;
 }

@@ -1,83 +1,120 @@
-Codigo     Descripcion                       Costo    Cantidad        Valor
-ASD123     Articulo bonito                    41.00    23             943.00
-JSDJ23     Articulo Barato                   433.00    2              866.00
-                                                  Valor Total        1809.00
-Codigo     Descripcion                       Costo    Cantidad        Valor
-ASD123     Articulo Bonito                    41.00    23             943.00
-JSDJ23     Articulo Barato                   433.00    2              866.00
-MSD22Q     Nuevo Articulo                     29.00    9              261.00
+             UNIVERSIDAD TECNOLOGICA DE PANAMA
+                CENTRO REGIONAL DE CHIRIQUI
+     LICENCIATURA EN INGENIERIA DE SISTEMAS Y COMPUTACION
+ESTUDIANTE: Ricardo Sanjur PROFESORA: Cecilia Gonzalez de Beitia
+           REPORTE DE VALORIZACION DE INVENTARIO
+                     EXAMEN SEMESTRAL
 
-                                                  Valor Total        2070.00
-Codigo     Descripcion                       Costo    Cantidad        Valor
-ASD123     Articulo Bonito                    41.00    23             943.00
-JSDJ23     Articulo Barato                   433.00    2              866.00
-MSD22Q     Nuevo Articulo                     29.00    9              261.00
-ASD321     Bonito Articulo                   434.00    23            9982.00
 
-                                                  Valor Total       12052.00
+Codigo     Descripcion                       Costo    Cantidad        Valor
+ABC000     REFRIGERADORA                     495.95    15            7439.25
+XYZ100     MARCADORES PARA TABLEROS           38.95    65            2531.75
+QWE200     PAÑALES DESECHABLES               10.95    70             766.50
+RST300     CERVEZA PANAMA                     24.95    85            2120.75
+DEF400     ABANICO DE PEDESTAL                35.95    45            1617.75
+JKL500     CUADERNOS DOBLE RAYA               25.95    85            2205.75
+FGH600     MESA DE PING PONG                  75.85    15            1137.75
+HIJ700     FRESAS CONGELADAS                  12.95    95            1230.25
+BCX800     MESA REDONDAS                     125.85    20            2517.00
+VNX900     LÁPICES DE  COLORES               12.50    100           1250.00
+
+                                                  Valor Total       22816.75
+
+
+             UNIVERSIDAD TECNOLOGICA DE PANAMA
+                CENTRO REGIONAL DE CHIRIQUI
+     LICENCIATURA EN INGENIERIA DE SISTEMAS Y COMPUTACION
+ESTUDIANTE: Ricardo Sanjur PROFESORA: Cecilia Gonzalez de Beitia
+                   REPORTE DE VENTAS
+                     EXAMEN SEMESTRAL
+
+
 NOMBRE DEL CLIENTE: Ricardo Sanjur
 
+13/12/21 08:16:56
+
 Codigo     Descripcion                       Precio   Cantidad        Valor
-ASD123     Articulo Bonito                    55.00    3              165.00
+QWE200     PAÑALES DESECHABLES               14.00    20             280.00
+VNX900     LÁPICES DE  COLORES               16.00    2               32.00
 
                                                                 ------------
 
-                                                    Sub Total         165.00
+                                                    Sub Total         312.00
 
                                                                 ------------
 
-                                                          4%         165.00
+                                                          0%           0.00
+
+                                                          0%           0.00
 
                                                                 ------------
 
-                                                    Sub Total         165.00
+                                               Total Impuesto           0.00
 
                                                                 ============
 
-                                                    Sub Total         330.00
-NOMBRE DEL CLIENTE: Thais Samudio
+                                                Total a Pagar         312.00
+
+
+             UNIVERSIDAD TECNOLOGICA DE PANAMA
+                CENTRO REGIONAL DE CHIRIQUI
+     LICENCIATURA EN INGENIERIA DE SISTEMAS Y COMPUTACION
+ESTUDIANTE: Ricardo Sanjur PROFESORA: Cecilia Gonzalez de Beitia
+                   REPORTE DE VENTAS
+                     EXAMEN SEMESTRAL
+
+
+NOMBRE DEL CLIENTE: Karla
+
+13/12/21 08:18:42
 
 Codigo     Descripcion                       Precio   Cantidad        Valor
-ASD123     Articulo Bonito                    52.00    5              260.00
-ASD321     Bonito Articulo                   585.00    13            7605.00
+QWE200     PAÑALES DESECHABLES               14.00    20             280.00
 
                                                                 ------------
 
-                                                    Sub Total        7865.00
+                                                    Sub Total         280.00
 
                                                                 ------------
 
-                                                          4%          10.40
-
-                                                          4%         304.20
+                                                          0%           0.00
 
                                                                 ------------
 
-                                               Total Impuesto        7865.00
+                                               Total Impuesto           0.00
 
                                                                 ============
 
-                                                Total a Pagar       15730.00
-NOMBRE DEL CLIENTE: Mi novia Bella
+                                                Total a Pagar         280.00
+
+
+             UNIVERSIDAD TECNOLOGICA DE PANAMA
+                CENTRO REGIONAL DE CHIRIQUI
+     LICENCIATURA EN INGENIERIA DE SISTEMAS Y COMPUTACION
+ESTUDIANTE: Ricardo Sanjur PROFESORA: Cecilia Gonzalez de Beitia
+                    REPORTE DE VENTAS
+                     EXAMEN SEMESTRAL
+
+
+NOMBRE DEL CLIENTE: anonimo
+
+13/12/21 08:20:04
 
 Codigo     Descripcion                       Precio   Cantidad        Valor
-ASD123     Articulo Bonito                    55.00    4              220.00
-ASD321     Bonito Articulo                   551.00    5             2755.00
+RST300     CERVEZA PANAMA                     33.00    1               33.00
 
                                                                 ------------
 
-                                                    Sub Total        2975.00
+                                                    Sub Total          33.00
 
                                                                 ------------
 
-                                                          4%           8.80
-
-                                                          4%         110.20
+                                                          10%           3.30
 
                                                                 ------------
 
-                                               Total Impuesto         119.00
+                                               Total Impuesto           3.30
 
                                                                 ============
 
-                                                Total a Pagar        3094.00
+                                                Total a Pagar          36.30
