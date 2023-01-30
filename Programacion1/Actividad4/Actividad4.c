@@ -148,6 +148,13 @@ bool fnPalindromo(char cadena[])
         return false;
 }
 
+int main(int argc, char const *argv[])
+{
+    printf(fnPalindromo("olo") ? "si" : "no");
+    return 0;
+}
+
+
 bool fnFeliz(int numero)
 {
     int suma = 0;
