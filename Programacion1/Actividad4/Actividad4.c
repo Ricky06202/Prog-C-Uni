@@ -140,7 +140,7 @@ bool fnPalindromo(char cadena[])
         if (tolower(cadena[i]) != tolower(cadena[j]))
             return false;
     return true;*/
-    char inv[strlen(cadena)];
+    char inv[strlen(cadena)]; 
     strcpy(inv, cadena);
     if (strcmpi(cadena, strrev(inv)) == 0)
         return true;
